@@ -1,0 +1,177 @@
+package aplicativo_estagio;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Screen {
+    public static void main(String[] args) {
+        // Criação do frame
+        JFrame frame = new JFrame("Login");
+        frame.setSize(400, 300); // Aumenta o tamanho da tela
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        // Painel principal
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Reduz o espaçamento entre os componentes
+
+        // Adiciona a imagem
+        ImageIcon icon = new ImageIcon("caminho/para/sua/imagem.png"); // Substitua pelo caminho da sua imagem
+        JLabel imageLabel = new JLabel(icon);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(imageLabel, gbc);
+
+        // Título
+        JLabel titleLabel = new JLabel("Bem-vindo ao Aplicativo");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        panel.add(titleLabel, gbc);
+
+        // Criação dos componentes
+        JLabel userLabel = new JLabel("Usuário:");
+        userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST; // Alinha o rótulo à direita
+        panel.add(userLabel, gbc);
+
+        JTextField userText = new JTextField();
+        userText.setPreferredSize(new Dimension(100, 30)); // Ajusta a altura e largura da caixa de texto
+        userText.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST; // Alinha a caixa de texto à esquerda
+        panel.add(userText, gbc);
+
+        JLabel passwordLabel = new JLabel("Senha:");
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.EAST; // Alinha o rótulo à direita
+        panel.add(passwordLabel, gbc);
+
+        JPasswordField passwordText = new JPasswordField();
+        passwordText.setPreferredSize(new Dimension(100, 30)); // Ajusta a altura e largura da caixa de texto
+        passwordText.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST; // Alinha a caixa de texto à esquerda
+        panel.add(passwordText, gbc);
+
+        JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+        loginButton.setPreferredSize(new Dimension(100, 30)); // Aumenta o tamanho do botão
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o botão
+        panel.add(loginButton, gbc);
+
+        JButton exitButton = new JButton("Sair");
+        exitButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+        exitButton.setPreferredSize(new Dimension(100, 30)); // Aumenta o tamanho do botão
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o botão
+        panel.add(exitButton, gbc);
+
+        // Adiciona o painel ao frame
+        frame.add(panel, BorderLayout.CENTER);
+
+        // Define o botão de login como o botão padrão
+        frame.getRootPane().setDefaultButton(loginButton);
+
+        // Ação do botão de login
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String user = userText.getText();
+                String password = new String(passwordText.getPassword());
+
+                // Aqui você pode adicionar a lógica de autenticação
+                if (user.equals("admin") && password.equals("1234")) {
+                    JOptionPane.showMessageDialog(frame, "Login bem-sucedido!");
+                    mostrarOpcoes();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Usuário ou senha incorretos.");
+                }
+            }
+
+            private void mostrarOpcoes() {
+                JFrame opcoesFrame = new JFrame("Opções");
+                opcoesFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Define a tela como cheia
+                opcoesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                opcoesFrame.setLayout(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.insets = new Insets(10, 10, 10, 10);
+                gbc.fill = GridBagConstraints.BOTH; // Faz os componentes preencherem o espaço disponível
+
+                JButton cadastrarButton = new JButton("Cadastrar");
+                cadastrarButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.weightx = 0.5;
+                gbc.weighty = 0.5;
+                opcoesFrame.add(cadastrarButton, gbc);
+
+                JButton consultarButton = new JButton("Consultar");
+                consultarButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+                gbc.gridx = 0;
+                gbc.gridy = 1;
+                opcoesFrame.add(consultarButton, gbc);
+
+                JButton historicoButton = new JButton("Histórico");
+                historicoButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+                gbc.gridx = 0;
+                gbc.gridy = 2;
+                opcoesFrame.add(historicoButton, gbc);
+
+                JButton editarButton = new JButton("Editar");
+                editarButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+                gbc.gridx = 0;
+                gbc.gridy = 3;
+                opcoesFrame.add(editarButton, gbc);
+
+                JButton logoutButton = new JButton("Sair");
+                logoutButton.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumenta o tamanho da fonte
+                gbc.gridx = 0;
+                gbc.gridy = 4;
+                opcoesFrame.add(logoutButton, gbc);
+
+                // Ação do botão de sair
+                logoutButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        opcoesFrame.dispose();
+                        userText.setText(""); // Limpa o campo de usuário
+                        passwordText.setText(""); // Limpa o campo de senha
+                        frame.setVisible(true);
+                    }
+                });
+
+                opcoesFrame.setVisible(true);
+                frame.setVisible(false);
+            }
+        });
+
+        // Ação do botão de sair
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Torna o frame visível
+        frame.setVisible(true);
+    }
+}
